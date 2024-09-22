@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="first"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_jia"
+        android:shortcutShortLabel="@string/a"
+        android:shortcutLongLabel="@string/a">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.weatherwindknow"
+            android:targetClass="com.example.weatherwindknow.mymain.future.futureFragment"/>
+        <categories android:name="android.shortcut.conversation"/>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="second"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_forcast"
+        android:shortcutShortLabel="@string/b"
+        android:shortcutLongLabel="@string/b">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.weatherwindknow"
+            android:targetClass="com.example.weatherwindknow.mymain.today.forcastFragment"/>
+        <categories android:name="android.shortcut.conversation"/>
+    </shortcut>
+    <shortcut
+        android:shortcutId="third"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_chengshi"
+        android:shortcutShortLabel="@string/c"
+        android:shortcutLongLabel="@string/c">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.weatherwindknow"
+            android:targetClass="com.example.weatherwindknow.myalwaysact.myalcityFragment"/>
+        <categories android:name="android.shortcut.conversation"/>
+    </shortcut>
+    <shortcut
+        android:shortcutId="fourth"
+        android:enabled="true"
+        android:icon="@drawable/dog"
+        android:shortcutShortLabel="@string/d"
+        android:shortcutLongLabel="@string/d">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.weatherwindknow"
+            android:targetClass="com.example.weatherwindknow.View.MapActivity"/>
+        <categories android:name="android.shortcut.conversation"/>
+        </shortcut>
+
+</shortcuts>

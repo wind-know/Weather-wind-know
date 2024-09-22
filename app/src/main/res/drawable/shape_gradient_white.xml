@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--    一个白色渐变的背景-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/white_2"
+        android:centerColor="@color/white_6"
+        android:endColor="#FFFFFFFF"
+        android:angle="270" />
+</shape>

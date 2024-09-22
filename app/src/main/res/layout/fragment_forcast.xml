@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mymain.today.forcastFragment">
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:ci_orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:ci_gravity="center"
+        app:ci_drawable_unselected="@drawable/tiao"
+        app:ci_drawable="@drawable/tiao"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    </androidx.viewpager2.widget.ViewPager2>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:foreground = "?attr/selectableItemBackground"
+        app:cardBackgroundColor = "@color/main"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainrecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scrollbars="none"
+        android:layout_marginTop="20dp"
+        android:gravity="center" />
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

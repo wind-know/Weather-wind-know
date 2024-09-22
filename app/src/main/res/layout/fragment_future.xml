@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mymain.future.futureFragment">
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:ci_orientation="horizontal"
+        android:layout_marginTop="10dp"
+        app:ci_gravity="center"
+        app:ci_drawable_unselected="@drawable/tiao"
+        app:ci_drawable="@drawable/tiao"/>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/futureviewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    </androidx.viewpager2.widget.ViewPager2>
+</FrameLayout>

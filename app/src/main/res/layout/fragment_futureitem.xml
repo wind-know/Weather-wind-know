@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mymain.future.futureitemFragment">
+    <TextView
+        android:id="@+id/futurecity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="城市"
+        android:gravity="center|bottom"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center|top" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/futurerecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="90dp"
+        android:scrollbars="vertical" />
+</FrameLayout>
