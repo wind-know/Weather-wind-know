@@ -3,5 +3,7 @@
     <style name="Base.Theme.Weatherwindknow" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:fontFamily">@font/shuhei</item>
+        <item name="fontFamily">@font/shuhei</item>
     </style>
 </resources>

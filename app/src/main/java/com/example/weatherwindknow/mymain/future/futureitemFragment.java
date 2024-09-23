@@ -1,5 +1,6 @@
 package com.example.weatherwindknow.mymain.future;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.weatherwindknow.mymain.today.myFragment;
 import com.example.weatherwindknow.mymain.today.weatherhourAdapter;
 import com.example.weatherwindknow.mymain.toweathercallback;
 import com.example.weatherwindknow.myservice.MyView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.qweather.sdk.bean.weather.WeatherDailyBean;
 import com.qweather.sdk.bean.weather.WeatherHourlyBean;
 
@@ -40,7 +42,6 @@ public class futureitemFragment extends Fragment {
     public futureitemFragment() {
         super();
     }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

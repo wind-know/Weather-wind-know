@@ -423,7 +423,7 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
             }
         });
         binding.edSearch.setThreshold(1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, addresses);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.search_item, addresses);
         binding.edSearch.setAdapter(adapter);
         binding.edSearch.setOnItemClickListener((parent, view, position, id) -> {
             String selectedAddress = (String) parent.getItemAtPosition(position);
@@ -432,25 +432,27 @@ public class MapActivity extends AppCompatActivity implements AMapLocationListen
         });
 
         binding.fabPoi.setOnClickListener(v -> {
-            showMsg("添加中....");
-            mPresenter = new mainPresenter();
-            mPresenter.getContract().getweather7D(this, location, new toweathercallback.callback7d() {
-                @Override
-                public void getweather7D(WeatherDailyBean weatherData) {
-                    mweatherDataDaily = weatherData;
-                    mPresenter.getContract().hefengweather(MapActivity.this, location, new toweathercallback() {
-                        @Override
-                        public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
-                            mweatherDataHourly = weatherData;
-                            dbHelper = alcityDbHelper.getInstance(MapActivity.this);
-                            dbHelper.updateByAdcode(adcode, location , map , mweatherDataHourly, mweatherDataDaily);
-                            runOnUiThread(() -> {
-                                showMsg("添加成功");
-                            });
-                        }
-                    });
-                }
-            });
+            if(location!=null) {
+                showMsg("添加中....");
+                mPresenter = new mainPresenter();
+                mPresenter.getContract().getweather7D(this, location, new toweathercallback.callback7d() {
+                    @Override
+                    public void getweather7D(WeatherDailyBean weatherData) {
+                        mweatherDataDaily = weatherData;
+                        mPresenter.getContract().hefengweather(MapActivity.this, location, new toweathercallback() {
+                            @Override
+                            public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
+                                mweatherDataHourly = weatherData;
+                                dbHelper = alcityDbHelper.getInstance(MapActivity.this);
+                                dbHelper.updateByAdcode(adcode, location, map, mweatherDataHourly, mweatherDataDaily);
+                                runOnUiThread(() -> {
+                                    showMsg("添加成功");
+                                });
+                            }
+                        });
+                    }
+                });
+            }
         });
         //放大
         bigShowAnim = AnimationUtils.loadAnimation(MapActivity.this, R.anim.scale_big_expand);

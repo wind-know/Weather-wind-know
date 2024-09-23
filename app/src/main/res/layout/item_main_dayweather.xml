@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="多云"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="25sp" />
 
 <!--            <ImageView-->
 <!--                android:id="@+id/iv_main_dayweather"-->
@@ -63,9 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:alpha="0.5"
                 android:text="15℃"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="15sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

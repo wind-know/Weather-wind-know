@@ -96,7 +96,6 @@ public class MainActivity extends BaseActivity<mainPresenter, Imain.Vp> {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.fragmentContainerView, new forcastFragment());
-                Log.e("forcastFragment", "forcastFragment");
                 ft.commit();
             } else if (item.getItemId() == R.id.item2) {
                 FragmentManager fm2 = getSupportFragmentManager();

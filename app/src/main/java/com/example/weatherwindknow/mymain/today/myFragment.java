@@ -1,11 +1,13 @@
 package com.example.weatherwindknow.mymain.today;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.weatherwindknow.R;
 import com.example.weatherwindknow.mymain.Imain;
 import com.example.weatherwindknow.mymain.mainPresenter;
 import com.example.weatherwindknow.mymain.toweathercallback;
@@ -54,17 +57,21 @@ public class myFragment extends Fragment implements Imain.Vp {
     }
 
     void initViews() {
+        Typeface iconfont = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
+        binding.imageViewWind.setTypeface(iconfont);
+        binding.imageViewPressure.setTypeface(iconfont);
+        binding.imageViewHumidity.setTypeface(iconfont);
+        binding.imageViewPop.setTypeface(iconfont);
         if (alcity != null) {
             WeatherHourlyBean weatherData = alcity.getMweatherHourlyBean();
             if (weatherData != null) {
-                Log.e("hefeng","weatherData is not null");
                 mv.newchange(weatherData.getHourly().get(0).getTemp());
                 binding.weather.setText(weatherData.getHourly().get(0).getText());
                 binding.city.setText(alcity.getMap());
-                binding.Humidity.setText("相对湿度:"+"\n"+weatherData.getHourly().get(0).getHumidity());
-                binding.Pop.setText("降水概率:"+"\n"+weatherData.getHourly().get(0).getPop()+"%");
-                binding.Wind.setText("风向风力:"+"\n"+weatherData.getHourly().get(0).getWindDir() + " " + weatherData.getHourly().get(0).getWindScale() + "级");
-                binding.Pressure.setText("大气压强:"+"\n"+weatherData.getHourly().get(0).getPressure());
+                binding.Humidity.setText("相对湿度:" + "\n" +String.format("%s%%", weatherData.getHourly().get(0).getHumidity()));
+                binding.Pop.setText("降水概率:" + "\n" + weatherData.getHourly().get(0).getPop() + "%");
+                binding.Wind.setText("风向风力:" + "\n" + weatherData.getHourly().get(0).getWindDir() + " " + weatherData.getHourly().get(0).getWindScale() + "级");
+                binding.Pressure.setText("大气压强:" + "\n" +String.format("%shPa", weatherData.getHourly().get(0).getPressure()));
             }
         }
     }
@@ -73,31 +80,24 @@ public class myFragment extends Fragment implements Imain.Vp {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "点击了", Toast.LENGTH_SHORT).show();
-                hefengweather(getActivity(),alcity.getLocation(), new toweathercallback() {
+                hefengweather(getActivity(), alcity.getLocation(), new toweathercallback() {
                     @Override
                     public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
-                        if(weatherData==null){
-                            Log.e("hefeng","hefengweather is null");
-                        }
-                        else {
+                        if (weatherData == null) {
+                            Log.e("hefeng", "hefengweather is null");
+                        } else {
                             WeatherHourlyBean weatherData1 = weatherData;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    mv.newchange(weatherData.getHourly().get(0).getTemp());
-                                    binding.weather.setText(weatherData.getHourly().get(0).getText());
-                                    binding.city.setText(alcity.getMap());
-                                    binding.Humidity.setText("相对湿度:"+"\n"+weatherData.getHourly().get(0).getHumidity());
-                                    binding.Pop.setText("降水概率:"+"\n"+weatherData.getHourly().get(0).getPop()+"%");
-                                    binding.Wind.setText("风向风力:"+"\n"+weatherData.getHourly().get(0).getWindDir() + " " + weatherData.getHourly().get(0).getWindScale() + "级");
-                                    binding.Pressure.setText("大气压强:"+"\n"+weatherData.getHourly().get(0).getPressure());
-
+                                    updateWeatherInfo(weatherData);
+                                    updateRecyclerView(weatherData1);
                                 }
                             });
-                            getweather7D(getActivity(),alcity.getLocation(), new callback7d() {
+                            getweather7D(getActivity(), alcity.getLocation(), new callback7d() {
                                 @Override
                                 public void getweather7D(WeatherDailyBean weatherData) {
-                                    dbHelper.updateByAdcode(alcity.getAdcode(),alcity.getLocation(),alcity.getMap(),weatherData1, weatherData);
+                                    dbHelper.updateByAdcode(alcity.getAdcode(), alcity.getLocation(), alcity.getMap(), weatherData1, weatherData);
                                 }
                             });
                         }
@@ -106,6 +106,25 @@ public class myFragment extends Fragment implements Imain.Vp {
             }
         });
     }
+
+    private void updateWeatherInfo(WeatherHourlyBean weatherData) {
+        mv.newchange(weatherData.getHourly().get(0).getTemp());
+        binding.weather.setText(weatherData.getHourly().get(0).getText());
+        binding.city.setText(alcity.getMap());
+        binding.Humidity.setText("相对湿度:" + "\n" +String.format("%s%%", weatherData.getHourly().get(0).getHumidity()));
+        binding.Pop.setText("降水概率:" + "\n" + weatherData.getHourly().get(0).getPop() + "%");
+        binding.Wind.setText("风向风力:" + "\n" + weatherData.getHourly().get(0).getWindDir() + " " + weatherData.getHourly().get(0).getWindScale() + "级");
+        binding.Pressure.setText("大气压强:" + "\n" +String.format("%shPa", weatherData.getHourly().get(0).getPressure()));
+    }
+
+    public void updateRecyclerView(WeatherHourlyBean weatherData) {
+        List<WeatherHourlyBean.HourlyBean> hourlyData = weatherData.getHourly();
+        // 确保在 onCreateView 中获取到的 recyclerViewMain 的引用可用
+        RecyclerView recyclerViewMain = getActivity().findViewById(R.id.mainrecyclerView);
+        weatherhourAdapter adapter = new weatherhourAdapter(hourlyData, getActivity());
+        recyclerViewMain.setAdapter(adapter);
+    }
+
 
     @Override
     public void onDestroyView() {

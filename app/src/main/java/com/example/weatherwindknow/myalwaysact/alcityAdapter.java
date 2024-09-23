@@ -38,7 +38,11 @@ public class alcityAdapter extends RecyclerView.Adapter<alcityAdapter.myViewHold
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         alcity alcity = malcityList.get(position);
-        Log.d("findinadpter", alcity.getMap());
+        if(alcity == null){
+            holder.binding.alcityName.setVisibility(View.GONE);
+            holder.binding.alcityTemp.setVisibility(View.GONE);
+            holder.binding.alcityWeather.setVisibility(View.GONE);
+        }
         dbHelper = alcityDbHelper.getInstance(holder.itemView.getContext());
         holder.setdate(alcity);
         holder.binding.alcitycardView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.recylegundong));
@@ -112,10 +116,12 @@ public class alcityAdapter extends RecyclerView.Adapter<alcityAdapter.myViewHold
         }
 
         public void setdate(alcity alcity) {
-            binding.alcityName.setText(alcity.getMap());
-            if(alcity.getMweatherHourlyBean()!=null) {
-                binding.alcityTemp.setText(alcity.getMweatherHourlyBean().getHourly().get(0).getTemp()+"°C");
-                binding.alcityWeather.setText(" "+alcity.getMweatherHourlyBean().getHourly().get(0).getText()+"\n"+" "+alcity.getmWeatherDailyBean().getDaily().get(0).getTempMin()+"°C/"+alcity.getmWeatherDailyBean().getDaily().get(0).getTempMax()+"°C");
+            if(alcity!=null) {
+                binding.alcityName.setText(alcity.getMap());
+                if (alcity.getMweatherHourlyBean() != null) {
+                    binding.alcityTemp.setText(alcity.getMweatherHourlyBean().getHourly().get(0).getTemp() + "°C");
+                    binding.alcityWeather.setText(" " + alcity.getMweatherHourlyBean().getHourly().get(0).getText() + "\n" + " " + alcity.getmWeatherDailyBean().getDaily().get(0).getTempMin() + "°C/" + alcity.getmWeatherDailyBean().getDaily().get(0).getTempMax() + "°C");
+                }
             }
         }
     }

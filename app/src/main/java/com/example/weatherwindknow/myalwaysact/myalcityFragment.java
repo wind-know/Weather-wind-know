@@ -44,19 +44,14 @@ public class myalcityFragment extends Fragment {
 
         malcityList = dbHelper.queryRegisterListData();
         if (malcityList.size() == 0) {
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
+            malcityList.add(null);
         }
-
         alcityAdapter alcityAdapter = new alcityAdapter(malcityList);
-        Log.d("find", malcityList.get(0).map);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());//添加布局管理器
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);//设置布局管理器
         recyclerView.setAdapter(alcityAdapter);
     }
-
     void initViews() {
 
     }
@@ -68,13 +63,10 @@ public class myalcityFragment extends Fragment {
 
         malcityList = dbHelper.queryRegisterListData();
         if (malcityList.size() == 0) {
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
-            malcityList.add(new alcity("101010100", "北京", null, null,null));
+            malcityList.add(null);
         }
 
         alcityAdapter alcityAdapter = new alcityAdapter(malcityList);
-        Log.d("find", malcityList.get(0).map);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());//添加布局管理器
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);//设置布局管理器

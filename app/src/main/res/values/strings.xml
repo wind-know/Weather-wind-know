@@ -7,4 +7,18 @@
     <string name="c">City</string>
     <string name="d">Map</string>
 
+    <string name="icon_pressure">&#xe998;</string>
+    <string name="icon_visibility">&#xe789;</string>
+    <string name="icon_map">&#xe664;</string>
+    <string name="icon_wind_force">&#xe666;</string>
+    <string name="icon_wind_direction">&#xe718;</string>
+    <string name="icon_tornado">&#xe71a;</string>
+    <string name="icon_full_moon">&#xe719;</string>
+    <string name="icon_sunny_doll">&#xe71b;</string>
+    <string name="icon_humidity">&#xe71c;</string>
+    <string name="icon_cloudy">&#xe71d;</string>
+    <string name="icon_sunny">&#xe71e;</string>
+    <string name="icon_rain">&#xe71f;</string>
+    <string name="icon_low_temperature">&#xe7e4;</string>
+    <string name="icon_high_temperature">&#xe7e5;</string>
 </resources>

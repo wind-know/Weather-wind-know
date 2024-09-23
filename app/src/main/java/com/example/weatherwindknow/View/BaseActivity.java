@@ -1,8 +1,11 @@
 package com.example.weatherwindknow.View;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,15 +15,19 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.example.weatherwindknow.Presenter.BasePresenter;
+import com.example.weatherwindknow.R;
 import com.example.weatherwindknow.myalwaysact.alcity;
 import com.example.weatherwindknow.myalwaysact.alcityDbHelper;
 import com.example.weatherwindknow.mymain.mainPresenter;
+import com.example.weatherwindknow.mymain.today.forcastFragment;
 import com.example.weatherwindknow.mymain.toweathercallback;
 import com.qweather.sdk.bean.weather.WeatherDailyBean;
 import com.qweather.sdk.bean.weather.WeatherHourlyBean;
@@ -62,9 +69,6 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
         mPresenter = getPresenterInstance();
         mPresenter.bindView(this);
     }
-//    private void mustdo() {
-//
-//    }
 
 
     @Override
@@ -158,6 +162,7 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
             showMsg("定位失败，aMapLocation 为空");
             return;
         }
+        int b =0;
         // 获取定位结果
         if (aMapLocation.getErrorCode() == 0) {
             // 定位成功
@@ -201,50 +206,74 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
                         @Override
                         public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
                             mweatherDataHourly = weatherData;
+                            int a = 0;
+                            if (dbHelper.queryRegisterListData() == null) {
+                                a = 1;
+                            }
                             dbHelper.updateByAdcode(adcode, location, map, mweatherDataHourly, mweatherDataDaily);
+                            if (a == 1) {
+                                FragmentManager fm = getSupportFragmentManager();
+                                FragmentTransaction ft = fm.beginTransaction();
+                                ft.replace(R.id.fragmentContainerView, new forcastFragment());
+                                ft.commit();
+                            }
                         }
                     });
                 }
             });
         } else {
             // 定位失败
-            showMsg("定位失败，错误：" + aMapLocation.getErrorInfo());
+            if(b==0){
+                showMsg("定位失败，错误：" + aMapLocation.getErrorInfo());
+                b = 1;
+            }
         }
     }
     public void uppDate(){
         mainPresenter Presenter = new mainPresenter();
         List<alcity> list = dbHelper.queryRegisterListData();
-        ExecutorService executor = Executors.newFixedThreadPool(list.size());
-        for (alcity item : list) {
-            executor.submit(() -> {
-                Presenter.getContract().getweather7D(this, item.getLocation(), new toweathercallback.callback7d() {
-                    @Override
-                    public void getweather7D(WeatherDailyBean weatherData) {
-                        item.setmWeatherDailyBean(weatherData);
-                        Presenter.getContract().hefengweather(BaseActivity.this, item.getLocation(), new toweathercallback() {
-                            @Override
-                            public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
-                                item.setMweatherHourlyBean(weatherData);
-                                synchronized (dbHelper) {  // 确保线程安全
-                                    dbHelper.updateByAlCity(item);
+        if(list != null&& !list.isEmpty()) {
+            // 检查网络连接
+            if (!isConnected()) {
+                Toast.makeText(this, "No network connection available.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            ExecutorService executor = Executors.newFixedThreadPool(list.size());
+            for (alcity item : list) {
+                executor.submit(() -> {
+                    Presenter.getContract().getweather7D(this, item.getLocation(), new toweathercallback.callback7d() {
+                        @Override
+                        public void getweather7D(WeatherDailyBean weatherData) {
+                            item.setmWeatherDailyBean(weatherData);
+                            Presenter.getContract().hefengweather(BaseActivity.this, item.getLocation(), new toweathercallback() {
+                                @Override
+                                public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
+                                    item.setMweatherHourlyBean(weatherData);
+                                    synchronized (dbHelper) {  // 确保线程安全
+                                        dbHelper.updateByAlCity(item);
+                                    }
                                 }
-                            }
-                        });
-                    }
+                            });
+                        }
+                    });
                 });
-            });
 
-        }
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            }
+            executor.shutdown();
+            try {
+                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
                 executor.shutdownNow();
             }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
         }
     }
-
+    private boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
     private void showMsg(CharSequence llw) {
         Toast.makeText(this, llw, Toast.LENGTH_SHORT).show();
     }

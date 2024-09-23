@@ -52,6 +52,7 @@
                     android:textColor="@color/main"
                     android:gravity="center"
                     android:text="天气"
+                    android:alpha="0.5"
                     android:autoSizeTextType="uniform"
                     android:textSize="20sp" />
             </LinearLayout>
