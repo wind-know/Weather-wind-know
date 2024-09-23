@@ -119,7 +119,6 @@ public class myFragment extends Fragment implements Imain.Vp {
 
     public void updateRecyclerView(WeatherHourlyBean weatherData) {
         List<WeatherHourlyBean.HourlyBean> hourlyData = weatherData.getHourly();
-        // 确保在 onCreateView 中获取到的 recyclerViewMain 的引用可用
         RecyclerView recyclerViewMain = getActivity().findViewById(R.id.mainrecyclerView);
         weatherhourAdapter adapter = new weatherhourAdapter(hourlyData, getActivity());
         recyclerViewMain.setAdapter(adapter);

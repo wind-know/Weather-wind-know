@@ -354,14 +354,11 @@ public class HourlyForecastView extends View implements ScrollWatcher {
 
             String code = hourlyWeatherList.get(dashLineList.get(i)).getIcon();
             BitmapDrawable bd;
-
-
             if (code.contains("d")) {
                 bd = (BitmapDrawable) mContext.getResources().getDrawable(IconUtils.getDayIconDark(code.replace("d", "")));
             } else {
                 bd = (BitmapDrawable) mContext.getResources().getDrawable(IconUtils.getNightIconDark(code.replace("n", "")));
             }
-
             assert bd != null;
             Bitmap bitmap = DisplayUtil.bitmapResize(bd.getBitmap(),
                     DisplayUtil.dp2px(mContext, bitmapXY), DisplayUtil.dp2px(mContext, bitmapXY));

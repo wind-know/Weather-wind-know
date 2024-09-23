@@ -289,6 +289,4 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
         super.onDestroy();
         mPresenter.unbindView();
     }
-
-
 }

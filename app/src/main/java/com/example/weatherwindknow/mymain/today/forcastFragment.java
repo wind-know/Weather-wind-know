@@ -47,7 +47,7 @@ public class forcastFragment extends Fragment {
                 layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 recyclerViewMain.setLayoutManager(layoutManager);//设置布局管理器
                 recyclerViewMain.setAdapter(weatherhourAdapter);
-                f.updateRecyclerView(f.alcity.getMweatherHourlyBean());
+//                f.updateRecyclerView(f.alcity.getMweatherHourlyBean());
             }
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

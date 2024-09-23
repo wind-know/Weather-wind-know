@@ -51,7 +51,6 @@ public class alcityAdapter extends RecyclerView.Adapter<alcityAdapter.myViewHold
             public void onClick(View v) {
                 int x;
                 x =  holder.getAdapterPosition();
-                Log.d("findinadpter", String.valueOf(x));
                 FragmentManager fm = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 forcastFragment fragment = new forcastFragment();

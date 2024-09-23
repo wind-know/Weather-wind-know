@@ -273,9 +273,6 @@ public class IconUtils {
     public static int getNightIconDark(String weather) {
         int imageId;
         switch (weather) {
-            case "100":
-                imageId = R.mipmap.icon_100n;
-                break;
             case "101":
                 imageId = R.mipmap.icon_101n;
                 break;
@@ -477,6 +474,7 @@ public class IconUtils {
             case "999":
                 imageId = R.mipmap.icon_999n;
                 break;
+            case "100":
             default:
                 imageId = R.mipmap.icon_100n;
                 break;
