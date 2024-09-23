@@ -24,7 +24,7 @@
         android:focusable="true"
         app:backgroundTint="@color/main"
         android:layout_gravity="top|end"
-        android:src="@drawable/ic_home_jia"
+        android:src="@drawable/ic_find"
         app:tint="@color/white"
         app:hoveredFocusedTranslationZ="18dp"
         app:pressedTranslationZ="18dp" />

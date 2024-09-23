@@ -155,14 +155,13 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
         //停止定位
         if (mLocationClient != null) mLocationClient.stopLocation();
     }
-
+    int b =0;
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (aMapLocation == null) {
             showMsg("定位失败，aMapLocation 为空");
             return;
         }
-        int b =0;
         // 获取定位结果
         if (aMapLocation.getErrorCode() == 0) {
             // 定位成功
@@ -207,11 +206,13 @@ public abstract class BaseActivity<P extends BasePresenter, CONTRACT> extends Ap
                         public void onWeatherRetrieved(WeatherHourlyBean weatherData) {
                             mweatherDataHourly = weatherData;
                             int a = 0;
-                            if (dbHelper.queryRegisterListData() == null) {
+                            if (dbHelper.queryRegisterListData().size()==0) {
+                                Log.d("map 3 baseactivity", map);
                                 a = 1;
                             }
                             dbHelper.updateByAdcode(adcode, location, map, mweatherDataHourly, mweatherDataDaily);
                             if (a == 1) {
+                                Log.d("map 2 baseactivity", map);
                                 FragmentManager fm = getSupportFragmentManager();
                                 FragmentTransaction ft = fm.beginTransaction();
                                 ft.replace(R.id.fragmentContainerView, new forcastFragment());
