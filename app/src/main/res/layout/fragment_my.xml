@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center|top"
         android:layout_margin="20dp"
         android:gravity="center"
@@ -84,7 +84,7 @@
                     android:id="@+id/Wind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="end|center"
                     android:text="Wind"
                     android:textColor="@color/main"
                     android:textSize="20sp" />
@@ -114,7 +114,7 @@
                     android:id="@+id/Humidity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="end|center"
                     android:text="Humidity"
                     android:textColor="@color/main"
                     android:textSize="20sp" />
@@ -144,7 +144,7 @@
                     android:id="@+id/Pressure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="end|center"
                     android:text="Pressure"
                     android:textColor="@color/main"
                     android:textSize="20sp" />
@@ -174,7 +174,7 @@
                     android:id="@+id/Pop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="end|center"
                     android:text="Pop"
                     android:textColor="@color/main"
                     android:textSize="20sp" />

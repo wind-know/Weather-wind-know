@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/pink_one"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mymain.today.forcastFragment">
     <me.relex.circleindicator.CircleIndicator3

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/pink_one"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".myalwaysact.myalcityFragment">
     <TextView
@@ -14,25 +14,26 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:layout_marginTop="40dp"
+
         android:layout_gravity="center|top" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cityadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/main"
+        app:backgroundTint="@color/white"
         android:layout_gravity="top|end"
         android:src="@drawable/ic_find"
-        app:tint="@color/white"
+        app:tint="@null"
         app:hoveredFocusedTranslationZ="18dp"
         app:pressedTranslationZ="18dp" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="90dp"
         android:scrollbars="vertical" />
 </FrameLayout>
